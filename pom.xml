@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.3.4.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>br.com.paulork</groupId>
+	<artifactId>hibernate-kotlin</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>hibernate-kotlin</name>
+	<description>Demo project for Spring Boot</description>
+
+	<properties>
+		<java.version>11</java.version>
+		<kotlin.version>1.3.72</kotlin.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.module</groupId>
+			<artifactId>jackson-module-kotlin</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jetbrains.kotlin</groupId>
+			<artifactId>kotlin-reflect</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jetbrains.kotlin</groupId>
+			<artifactId>kotlin-stdlib-jdk8</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
+		<testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.jetbrains.kotlin</groupId>
+				<artifactId>kotlin-maven-plugin</artifactId>
+				<configuration>
+					<args>
+						<arg>-Xjsr305=strict</arg>
+					</args>
+					<compilerPlugins>
+						<!-- Faz uso do plugin 'allopen' abaixo - remove o 'final' de classes padrão 'final' no kotlin -->
+						<plugin>spring</plugin>
+						<!-- Faz uso do plugin 'noarg' abaixo  - adiciona construtores sem parametros  p/ entity, mappedsuperclass e embeddable automaticamente -->
+						<plugin>jpa</plugin>
+
+						<!--<plugin>no-arg</plugin>-->
+						<plugin>all-open</plugin>
+					</compilerPlugins>
+					<pluginOptions>
+						<!-- Necessário para o lazy funcionar - o plugin 'spring' acima não se estende as anotações abaixo, apenas anotações do spring -->
+						<!-- Desative as 3 linhas abaixo e rode o teste 'CommentRepositoryTest' para ver o Lazy sendo ignorado -->
+						<option>all-open:annotation=javax.persistence.Entity</option>
+						<option>all-open:annotation=javax.persistence.MappedSuperclass</option>
+						<option>all-open:annotation=javax.persistence.Embeddable</option>
+
+						<!-- Não necessário ao usar o plugin 'jpa' acima (estão abrangidas), salvo outros tipos de classes que precisam construtores sem parametros -->
+						<!--<option>no-arg:annotation=javax.persistence.Entity</option>-->
+						<!--<option>no-arg:annotation=javax.persistence.MappedSuperclass</option>-->
+						<!--<option>no-arg:annotation=javax.persistence.Embeddable</option>-->
+					</pluginOptions>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.jetbrains.kotlin</groupId>
+						<artifactId>kotlin-maven-allopen</artifactId>
+						<version>${kotlin.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.jetbrains.kotlin</groupId>
+						<artifactId>kotlin-maven-noarg</artifactId>
+						<version>${kotlin.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
