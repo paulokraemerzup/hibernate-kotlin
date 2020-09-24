@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue
 import javax.persistence.Id
 
 @Entity
-data class Article(
+class Article(
 
     @Id
     @GeneratedValue

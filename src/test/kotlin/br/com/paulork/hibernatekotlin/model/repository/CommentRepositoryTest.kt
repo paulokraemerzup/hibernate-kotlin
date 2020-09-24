@@ -33,7 +33,7 @@ class CommentRepositoryTest {
 
         """
         #############
-        # Get comment author's ID
+        # Get comment article's ID
         #############
         """.trimIndent().also(::println)
 
@@ -53,6 +53,6 @@ class CommentRepositoryTest {
 //        #############
 //        """.trimIndent().also(::println)
 //
-//        println("=> author.name is = ${comment.article.name}")
+//        println("=> article.name is = ${comment.article.name}")
     }
 }

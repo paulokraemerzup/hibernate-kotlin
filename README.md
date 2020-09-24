@@ -6,7 +6,7 @@ Algumas configurações não funcionam sem eles, exemplo: o Lazy em relacionamen
 
 A aplicação é bem simples e tem um classe de teste para demonstrar o uso dos plugins. Dê uma olhada no POM.XML e nos seus comentários. Da mesma forma a classe Comment e seus relacionamentos.
 
-Ao configurar seu template inicial via Spring Initializr os seguintes plugins já vem com uma aplicação Kotlin:
+Ao configurar seu template inicial via [Spring Initializr](https://start.spring.io/) os seguintes plugins já vem com uma aplicação Kotlin:
 
 ``` xml
 <compilerPlugins>
@@ -47,6 +47,12 @@ Mas para que o `Lazy` funcione como deveria, é necessária uma config extra:
     <option>all-open:annotation=javax.persistence.Embeddable</option>
 </pluginOptions>
 ``` 
+
+Alguns artigos sugerem que não devemos usar `data class` para entidades, pelo fato de não poderem ter hierarquia/subclasse, já outros atribuiem ao fato de que as funções `equals`/`hashCode` são geradas automaticamente ao trabalhar com o Hibernate, especialmente porque o identificador de entidade pode ser definido após o objeto ser construído. Significando que nossas classes "nunca podem" ser imutáveis.
+
+Mas mesmo que não usemos a "comodidade" de uma `data class`, e sim uma `class`, ainda incorremos no mesmo problema.
+
+Artigo completo falando do assunto: https://kotlinexpertise.com/hibernate-with-kotlin-spring-boot/ 
 
 Leia também sobre os plugins:
 
