@@ -49,10 +49,10 @@ class CommentRepositoryTest {
 //
 //        """
 //        #############
-//        # Get comment article's name
+//        # Get comment article's content
 //        #############
 //        """.trimIndent().also(::println)
 //
-//        println("=> article.name is = ${comment.article.name}")
+//        println("=> article.name is = ${comment.article.content}")
     }
 }
